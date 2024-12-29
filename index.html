@@ -8,6 +8,7 @@
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.0.1/dist/chart.umd.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-adapter-date-fns@3.0.0"></script>
     <script src="https://cdn.jsdelivr.net/npm/chartjs-plugin-streaming@2.0.0"></script>
+    <link rel="stylesheet" href="main.css">
     <style>
         body {
             display: flex;
@@ -249,11 +250,11 @@
         <div id="chart-container" class="chart-container">
             <div class="chart-item">
                 <h2>Biểu đồ Nhiệt độ</h2>
-                <canvas id="temperatureChart"></canvas>
+                <canvas id="temperature" width="500" height="500"></canvas>
             </div>
             <div class="chart-item">
                 <h2>Biểu đồ Độ ẩm</h2>
-                <canvas id="humidityChart"></canvas>
+                <canvas id="humidity" width="500" height="500"></canvas>
             </div>
         </div>
     </div>
@@ -326,8 +327,7 @@
         });
 
         // MQTT để đọc trạng thái thiết bị
-        const mqttClient = new Paho.MQTT.Client("mqtt-dashboard.com", 8000, "clientId-" + parseInt(Math.random() * 100, 10));
-
+        const client = new Paho.MQTT.Client("wss://mqtt-dashboard.com:8000/mqtt");
         mqttClient.onConnectionLost = function(responseObject) {
             if (responseObject.errorCode !== 0) {
                 console.log("Lỗi mất kết nối: " + responseObject.errorMessage);
@@ -526,5 +526,6 @@ function updateCharts() {
     humidityChart.update();
 }
     </script>
+    <script src="main.js"></script>
 </body>
 </html>
